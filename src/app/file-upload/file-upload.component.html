@@ -1,0 +1,14 @@
+<div>
+    <label for='files'>Choose mp3</label>
+    <br>
+    <input type='file' multiple accept=".mp3" #files (change)='handleUpload($event.target.files)'>
+    <br>
+    <mat-list>
+        <mat-list-item *ngFor='let f of filesToUpload; let i = index' (click)="playAudio(f, i)">
+            <mat-icon color="primary" mat-list-icon>music_note</mat-icon>
+            <h6 mat-line>{{f.name}}</h6>
+            <mat-divider></mat-divider>
+        </mat-list-item>
+    </mat-list>
+    
+</div>
