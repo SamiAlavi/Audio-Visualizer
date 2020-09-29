@@ -1,5 +1,5 @@
 import { summaryFileName } from '@angular/compiler/src/aot/util';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-file-upload',
@@ -9,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 export class FileUploadComponent implements OnInit {
 
   constructor() { }
+  
+  @Output() sendDetails: EventEmitter<any> = new EventEmitter<any>();
+  @Output() currentTime: EventEmitter<any> = new EventEmitter<any>();
 
+  audiourl
   filesToUpload = []
-  audio = new Audio()
+  currentPlaying:any = {}
 
   ngOnInit(): void {
   }
@@ -23,12 +27,19 @@ export class FileUploadComponent implements OnInit {
     }
   }
 
-  playAudio(file, index){
-    this.audio.pause();
-    this.audio.src = "http://127.0.0.1:8887/"+file.name;
-    this.audio.load();
-    this.audio.play();
-    console.log(this.audio)
+  playAudio(file){
+    this.audiourl = "http://127.0.0.1:8887/"+file.name;
+    this.currentPlaying.url = this.audiourl
+  }
+
+  getDuration(event){
+    this.currentPlaying.duration = event.target.duration
+    this.sendDetails.emit(this.currentPlaying)
+    console.log(this.currentPlaying)
+  }
+
+  getCurrentTime(event){
+    this.currentTime.emit(event.target.currentTime)
   }
 
 }

@@ -3,6 +3,13 @@
     <br>
     <input type='file' multiple accept=".mp3" #files (change)='handleUpload($event.target.files)'>
     <br>
+
+    <audio #audio autoplay [attr.src]='audiourl'
+           (loadedmetadata)='getDuration($event)'
+           (timeupdate)='getCurrentTime($event)'>
+
+    </audio>
+
     <mat-list>
         <mat-list-item *ngFor='let f of filesToUpload; let i = index' (click)="playAudio(f, i)">
             <mat-icon color="primary" mat-list-icon>music_note</mat-icon>
