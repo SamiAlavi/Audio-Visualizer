@@ -1,18 +1,14 @@
 <mat-toolbar color='primary'>Audio Player</mat-toolbar>
 
 <mat-card>
-  <app-file-upload  (sendDetails)='getDetails($event)' (currentTime)='setCurrentTime($event)'></app-file-upload>
+  <app-file-upload (sendFiles)='getFiles($event)'></app-file-upload>
+  <mat-list>
+    <mat-list-item *ngFor='let f of files; let i = index' (click)="playAudio(f, i)">
+        <mat-icon color="primary" mat-list-icon>music_note</mat-icon>
+        <h6 mat-line>{{f.name}}</h6>
+        <mat-divider></mat-divider>
+    </mat-list-item>
+  </mat-list>  
 </mat-card>
 
-<div class='bottomToolbar'>
-  <mat-toolbar color='primary'>
-    <button mat-icon-button>
-      <mat-icon>play_circle_filled</mat-icon>
-    </button>
-    <button mat-icon-button>
-      <mat-icon>stop</mat-icon>
-    </button>    
-    <mat-slider min='0' [max]='duration' [value]='currentTime'></mat-slider>
-    {{time}}/{{totalTime}}
-  </mat-toolbar>
-</div>
+<app-audio-player [songToPlay]='songToPlay'></app-audio-player>

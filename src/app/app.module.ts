@@ -10,7 +10,8 @@ import { MatListModule } from '@angular/material/list'
 import { MatSliderModule } from '@angular/material/slider'
 import { MatIconModule } from '@angular/material/icon'
 import { MatToolbarModule } from '@angular/material/toolbar'
-import { MatCardModule } from '@angular/material/card'
+import { MatCardModule } from '@angular/material/card';
+import { AudioPlayerComponent } from './audio-player/audio-player.component'
 
 const matmodules = [
   MatButtonModule,
@@ -23,7 +24,8 @@ const matmodules = [
 @NgModule({
   declarations: [	
     AppComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    AudioPlayerComponent
    ],
   imports: [
     BrowserModule,

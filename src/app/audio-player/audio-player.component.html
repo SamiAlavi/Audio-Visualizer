@@ -1,0 +1,26 @@
+<audio #audio autoplay [attr.src]='audiourl'
+  (loadedmetadata)='getDuration($event.target)'
+  (timeupdate)='getCurrentTime($event.target)'
+  (canplay)='setAudio($event.target)'>
+</audio>
+
+<div class='bottomToolbar'>
+  <mat-toolbar color='primary'>
+    <!--<div #divTitle>{{title}}</div> -->
+    <div *ngIf="playing; then pause else play">
+    </div>
+    <button mat-icon-button (click)="updatePlayState('stopped')">
+      <mat-icon>stop</mat-icon>
+    </button>    
+    <mat-slider min='0' [max]='duration' [value]='currentTime' (input)="onSeek($event.value)"></mat-slider>
+    <div *ngIf='audiourl'>{{time}}/{{totalTime}}</div>
+  </mat-toolbar>
+</div>
+
+
+<ng-template #play>
+  <button mat-icon-button (click)="updatePlayState('playing')"><mat-icon >play_circle_filled</mat-icon></button>
+</ng-template>
+<ng-template #pause>
+  <button mat-icon-button (click)="updatePlayState('paused')"><mat-icon >pause_circle_filled</mat-icon></button>
+</ng-template>

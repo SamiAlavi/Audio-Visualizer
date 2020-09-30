@@ -10,8 +10,7 @@ export class FileUploadComponent implements OnInit {
 
   constructor() { }
   
-  @Output() sendDetails: EventEmitter<any> = new EventEmitter<any>();
-  @Output() currentTime: EventEmitter<any> = new EventEmitter<any>();
+  @Output() sendFiles: EventEmitter<any> = new EventEmitter<any>();
 
   audiourl
   filesToUpload = []
@@ -21,25 +20,13 @@ export class FileUploadComponent implements OnInit {
   }
 
   handleUpload(e){
-    this.filesToUpload = []
-    for (var i = 0; i < e.length; i++) {
-      this.filesToUpload.push(e[i])
+    if (e.length!=0){
+      this.filesToUpload = []
+      for (var i = 0; i < e.length; i++) {
+        this.filesToUpload.push(e[i])
+      }
+      this.sendFiles.emit(this.filesToUpload)
     }
-  }
-
-  playAudio(file){
-    this.audiourl = "http://127.0.0.1:8887/"+file.name;
-    this.currentPlaying.url = this.audiourl
-  }
-
-  getDuration(event){
-    this.currentPlaying.duration = event.target.duration
-    this.sendDetails.emit(this.currentPlaying)
-    console.log(this.currentPlaying)
-  }
-
-  getCurrentTime(event){
-    this.currentTime.emit(event.target.currentTime)
   }
 
 }
