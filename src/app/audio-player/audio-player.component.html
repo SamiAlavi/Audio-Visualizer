@@ -6,14 +6,18 @@
 
 <div class='bottomToolbar'>
   <mat-toolbar color='primary'>
-    <!--<div #divTitle>{{title}}</div> -->
-    <div *ngIf="playing; then pause else play">
-    </div>
-    <button mat-icon-button (click)="updatePlayState('stopped')">
-      <mat-icon>stop</mat-icon>
-    </button>    
-    <mat-slider min='0' [max]='duration' [value]='currentTime' (input)="onSeek($event.value)"></mat-slider>
-    <div *ngIf='audiourl'>{{time}}/{{totalTime}}</div>
+    <mat-toolbar-row>    
+      <span class='spanTitle'>{{title}}</span>
+    </mat-toolbar-row>
+    <mat-toolbar-row>
+      <div *ngIf="playing; then pause else play">
+      </div>
+      <button mat-icon-button (click)="updatePlayState('stopped')">
+        <mat-icon>stop</mat-icon>
+      </button>    
+      <mat-slider min='0' [max]='duration' [value]='currentTime' (input)="onSeek($event.value)"></mat-slider>
+      <div *ngIf='audiourl'>{{time}}/{{totalTime}}</div>
+    </mat-toolbar-row>
   </mat-toolbar>
 </div>
 

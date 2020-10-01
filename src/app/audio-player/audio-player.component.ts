@@ -26,7 +26,7 @@ export class AudioPlayerComponent implements OnInit {
   time        //Audio Current Time (formatted as string)
   audiourl    //Audio Link
   audio       //Audio Element
-  title = '.'       //Audio Title
+  title       //Audio Title
   
   playing: boolean = false
   state: string = 'stopped'
@@ -67,22 +67,25 @@ export class AudioPlayerComponent implements OnInit {
   }
 
   updatePlayState(state){
-    this.state = state
-    if (state=='playing'){
-      this.playing = true
-      if (this.audio!=null) this.audio.play()
+    if (this.audiourl!=null){
+      this.state = state
+      if (state=='playing'){
+        this.playing = true
+        if (this.audio!=null) this.audio.play()
+      }
+      else if (state=='paused'){
+        this.playing = false
+        if (this.audio!=null) this.audio.pause()      
+      }
+      else if (state=='stopped'){
+        this.onSeek(0)
+        this.updatePlayState('paused')
+      }
+      else if (state=='ended'){
+        this.playing = false
+      }
     }
-    else if (state=='paused'){
-      this.playing = false
-      if (this.audio!=null) this.audio.pause()      
-    }
-    else if (state=='stopped'){
-      this.onSeek(0)
-      this.updatePlayState('paused')
-    }
-    else if (state=='ended'){
-      this.playing = false
-    }
+    
   }
 
 }

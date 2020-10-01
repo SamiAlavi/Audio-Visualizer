@@ -2,11 +2,11 @@
     position: fixed;
     width:100%;
     bottom: 0;
+    z-index: 1;
 }
 mat-slider{
     width:80%
 }
-#divTitle{
-    max-height: 14px;
-    text-align: center;;
+.spanTitle{
+    margin:auto;
 }

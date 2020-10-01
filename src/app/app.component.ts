@@ -6,16 +6,24 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'visualizer';
+  title = 'Audio Visualizer';
   
   files
   songToPlay
+  opened: boolean = false
   
   getFiles(files){
     this.files = files
   }
 
-  playAudio(file, i){
+  playAudio(file){
     this.songToPlay = file
+  }
+
+  toggle(){
+    if (this.files!=null){
+      if (this.opened) { this.opened = false }
+      else { this.opened = true }
+    }
   }
 }

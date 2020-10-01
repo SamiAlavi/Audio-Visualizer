@@ -1,3 +1,7 @@
 *{
     margin:0
 }
+mat-drawer-container{
+    height: 90%;
+    width: 100%;
+}
