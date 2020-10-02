@@ -1,3 +1,4 @@
+import { analyzeAndValidateNgModules, analyzeFileForInjectables } from '@angular/compiler';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -9,9 +10,15 @@ export class AudioPlayerComponent implements OnInit {
 
   @Input() songToPlay
 
-  constructor() { }  
+  constructor() {}  
 
   ngOnInit(): void {
+    this.audioElement = document.getElementById('audioPlayer') as HTMLMediaElement
+    this.window = window
+    
+    window.addEventListener('resize', this.resizeCanvas, false);
+    // Draw canvas border for the first time.
+    this.resizeCanvas();
   }
 
   ngOnChanges(): void {
@@ -19,7 +26,7 @@ export class AudioPlayerComponent implements OnInit {
       this.playSong(this.songToPlay)
     }
   }
-
+  
   duration    //Audio Duration
   totalTime   //Audio Duration (formatted as string)
   currentTime //Audio Current Time
@@ -31,10 +38,66 @@ export class AudioPlayerComponent implements OnInit {
   playing: boolean = false
   state: string = 'stopped'
   
+  audioElement
+  canvas
+  window
+
+  data
+  ctx
+  audioCtx = new AudioContext();
+  analyser = this.audioCtx.createAnalyser();
+  hue = 0
+
+  resizeCanvas(){
+    this.canvas = document.getElementById('audio_visual') as HTMLCanvasElement
+    this.canvas.width = window.innerWidth
+    this.canvas.height = window.innerHeight*0.71
+  }  
+
+  loopingFunction(self){
+    self.analyser.getByteFrequencyData(self.data);
+    self.draw(self.data);
+    let sample = () => { self.loopingFunction(self); }
+    requestAnimationFrame(sample);
+  }
+  
+  audioAnalyser(){
+    this.ctx = this.canvas.getContext("2d");
+    this.analyser.fftSize = 4096;
+    let source = this.audioCtx.createMediaElementSource(this.audioElement);
+    source.connect(this.analyser);
+    source.connect(this.audioCtx.destination);
+    this.data = new Uint8Array(this.analyser.frequencyBinCount);
+    
+    this.analyser.getByteFrequencyData(this.data);
+    this.draw(this.data);
+    
+    let sample = () => { this.loopingFunction(this); }    
+    requestAnimationFrame(sample);
+  }
+
+  draw(data){    
+    data = [...data];
+    this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
+    let space = this.canvas.width / data.length;
+    data.forEach((value,i)=>{
+        this.ctx.beginPath();
+        this.ctx.moveTo(space*i,this.canvas.height); //x,y
+        this.ctx.lineTo(space*i,this.canvas.height-value); //x,y
+        this.ctx.strokeStyle = `hsl(${this.hue}, 100%, 50%)`
+        this.ctx.stroke();        
+        this.hue++
+        if (this.hue >= 360) {
+            this.hue = 0
+        }
+    })
+  }
+
   playSong(song){
     this.audiourl = 'http://127.0.0.1:8887/'+song.name
     this.title = song.name
     this.updatePlayState('playing')
+    this.audioAnalyser()
   }
 
   getDuration(target){

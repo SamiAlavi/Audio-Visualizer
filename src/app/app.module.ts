@@ -10,8 +10,8 @@ import { MatListModule } from '@angular/material/list'
 import { MatSliderModule } from '@angular/material/slider'
 import { MatIconModule } from '@angular/material/icon'
 import { MatToolbarModule } from '@angular/material/toolbar'
-import { MatCardModule } from '@angular/material/card';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatBadgeModule } from '@angular/material/badge';
 
 import { AudioPlayerComponent } from './audio-player/audio-player.component'
 
@@ -21,8 +21,8 @@ const matmodules = [
   MatSliderModule,
   MatIconModule,
   MatToolbarModule,
-  MatCardModule,
-  MatSidenavModule
+  MatSidenavModule,
+  MatBadgeModule
 ]
 @NgModule({
   declarations: [	

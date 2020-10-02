@@ -1,8 +1,11 @@
   <mat-toolbar color='primary' style="height:10%;">
     <button mat-icon-button (click)="toggle()">
-      <mat-icon>menu</mat-icon>
+      <mat-icon
+      [matBadge]="length" [matBadgeHidden]="!files" matBadgePosition="before" matBadgeColor="accent">menu</mat-icon>
     </button>
-    {{title}}
+    {{title}}  
+    <span class="example-spacer"></span>
+    <app-file-upload (sendFiles)='getFiles($event)'></app-file-upload>
   </mat-toolbar>
 
 <mat-drawer-container>
@@ -17,11 +20,7 @@
   </mat-drawer>
 
   <mat-drawer-content>
-    <mat-card>
-      <app-file-upload (sendFiles)='getFiles($event)'></app-file-upload>
-    </mat-card>
     <app-audio-player [songToPlay]='songToPlay'></app-audio-player>
-
   </mat-drawer-content>
 </mat-drawer-container>
 

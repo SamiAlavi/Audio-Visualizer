@@ -1,6 +1,2 @@
-<div>
-    <label for='files'>Choose mp3</label>
-    <br>
-    <input type='file' multiple accept=".mp3" #files (change)='handleUpload($event.target.files)'>
-    <br>    
-</div>
+<button mat-raised-button color="accent" (click)='triggerClick(inputFiles)'>Choose Files</button>
+<input #inputFiles type='file' multiple accept=".mp3" (change)='handleUpload($event.target.files)'>

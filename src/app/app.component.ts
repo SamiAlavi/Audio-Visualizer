@@ -9,11 +9,15 @@ export class AppComponent {
   title = 'Audio Visualizer';
   
   files
+  length
   songToPlay
   opened: boolean = false
   
   getFiles(files){
     this.files = files
+    this.length = files.length
+    console.log(files)
+    console.log(this.length)
   }
 
   playAudio(file){

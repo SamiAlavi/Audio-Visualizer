@@ -1,11 +1,17 @@
-<audio #audio autoplay [attr.src]='audiourl'
+<audio id='audioPlayer' autoplay crossorigin="anonymous"
+  [attr.src]='audiourl'
   (loadedmetadata)='getDuration($event.target)'
   (timeupdate)='getCurrentTime($event.target)'
   (canplay)='setAudio($event.target)'>
 </audio>
 
-<div class='bottomToolbar'>
-  <mat-toolbar color='primary'>
+<div id='parent'>
+  <canvas id="audio_visual" width="400px" height='400px' ></canvas>
+</div>
+
+
+<div >
+  <mat-toolbar color='primary' class='bottomToolbar'>
     <mat-toolbar-row>    
       <span class='spanTitle'>{{title}}</span>
     </mat-toolbar-row>

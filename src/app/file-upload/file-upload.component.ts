@@ -19,6 +19,10 @@ export class FileUploadComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  triggerClick(fileInput:HTMLInputElement){
+    fileInput.click()
+  }
+
   handleUpload(e){
     if (e.length!=0){
       this.filesToUpload = []
