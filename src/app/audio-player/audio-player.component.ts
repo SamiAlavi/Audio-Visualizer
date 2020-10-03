@@ -8,24 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class AudioPlayerComponent implements OnInit {
 
-  @Input() songToPlay
-
-  constructor() {}  
-
-  ngOnInit(): void {
-    this.audioElement = document.getElementById('audioPlayer') as HTMLMediaElement
-    this.window = window
-    
-    window.addEventListener('resize', this.resizeCanvas, false);
-    // Draw canvas border for the first time.
-    this.resizeCanvas();
-  }
-
-  ngOnChanges(): void {
-    if (this.songToPlay!=null) {
-      this.playSong(this.songToPlay)
-    }
-  }
+  @Input() songToPlay  
   
   duration    //Audio Duration
   totalTime   //Audio Duration (formatted as string)
@@ -38,20 +21,40 @@ export class AudioPlayerComponent implements OnInit {
   playing: boolean = false
   state: string = 'stopped'
   
+  //elements
   audioElement
   canvas
   window
-
+  
+  //visualizer stuff
   data
   ctx
   audioCtx = new AudioContext();
   analyser = this.audioCtx.createAnalyser();
-  hue = 0
+  hue = -1
+
+  constructor() {}  
+
+  ngOnInit(): void {
+    this.audioElement = document.getElementById('audioPlayer') as HTMLMediaElement
+    this.window = window
+    this.analyser.fftSize = 4096;    
+    
+    window.addEventListener('resize', this.resizeCanvas, false);
+    this.resizeCanvas();
+  }
+
+  ngOnChanges(): void {
+    if (this.songToPlay!=null) {
+      this.playSong(this.songToPlay)
+    }
+  }
 
   resizeCanvas(){
     this.canvas = document.getElementById('audio_visual') as HTMLCanvasElement
     this.canvas.width = window.innerWidth
     this.canvas.height = window.innerHeight*0.71
+    this.ctx = this.canvas.getContext("2d");    
   }  
 
   loopingFunction(self){
@@ -62,8 +65,6 @@ export class AudioPlayerComponent implements OnInit {
   }
   
   audioAnalyser(){
-    this.ctx = this.canvas.getContext("2d");
-    this.analyser.fftSize = 4096;
     let source = this.audioCtx.createMediaElementSource(this.audioElement);
     source.connect(this.analyser);
     source.connect(this.audioCtx.destination);
@@ -79,18 +80,21 @@ export class AudioPlayerComponent implements OnInit {
   draw(data){    
     data = [...data];
     this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
+    if (true){this.rainbowEffect()}    
     let space = this.canvas.width / data.length;
     data.forEach((value,i)=>{
         this.ctx.beginPath();
         this.ctx.moveTo(space*i,this.canvas.height); //x,y
         this.ctx.lineTo(space*i,this.canvas.height-value); //x,y
-        this.ctx.strokeStyle = `hsl(${this.hue}, 100%, 50%)`
+        if (false){this.rainbowEffect();}        
         this.ctx.stroke();        
-        this.hue++
-        if (this.hue >= 360) {
-            this.hue = 0
-        }
     })
+  }
+
+  rainbowEffect(){
+    this.ctx.strokeStyle = `hsl(${this.hue}, 100%, 50%)`
+    this.hue++
+    if (this.hue >= 360) { this.hue = 0 }
   }
 
   playSong(song){
@@ -147,8 +151,6 @@ export class AudioPlayerComponent implements OnInit {
       else if (state=='ended'){
         this.playing = false
       }
-    }
-    
+    }    
   }
-
 }

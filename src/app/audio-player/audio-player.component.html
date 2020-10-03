@@ -9,11 +9,14 @@
   <canvas id="audio_visual" width="400px" height='400px' ></canvas>
 </div>
 
-
 <div >
   <mat-toolbar color='primary' class='bottomToolbar'>
     <mat-toolbar-row>    
       <span class='spanTitle'>{{title}}</span>
+      <span class="example-spacer"></span>
+      
+      <button mat-raised-button color='accent' style='width:110px'>Effects</button>
+
     </mat-toolbar-row>
     <mat-toolbar-row>
       <div *ngIf="playing; then pause else play">

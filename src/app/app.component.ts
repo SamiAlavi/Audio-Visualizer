@@ -16,12 +16,12 @@ export class AppComponent {
   getFiles(files){
     this.files = files
     this.length = files.length
-    console.log(files)
-    console.log(this.length)
+    this.toggle()
   }
 
   playAudio(file){
     this.songToPlay = file
+    this.toggle()
   }
 
   toggle(){
