@@ -12,7 +12,6 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatBadgeModule } from '@angular/material/badge';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 import { AudioPlayerComponent } from './audio-player/audio-player.component'
 
@@ -24,7 +23,6 @@ const matmodules = [
   MatToolbarModule,
   MatSidenavModule,
   MatBadgeModule,
-  MatSlideToggleModule
 ]
 @NgModule({
   declarations: [	
