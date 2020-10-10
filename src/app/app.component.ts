@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { SettingsComponent } from './settings/settings.component';
 
 @Component({
   selector: 'app-root',
@@ -6,12 +8,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  
+  constructor(private bottomSheet: MatBottomSheet) {}
+
   title = 'Audio Visualizer';
   
   files
   length
   songToPlay
+  index
   opened: boolean = false
+  settings = {effect: 'rainbow1'}
   
   getFiles(files){
     this.files = files
@@ -19,8 +26,9 @@ export class AppComponent {
     this.toggle()
   }
 
-  playAudio(file){
+  playAudio(file, i){
     this.songToPlay = file
+    this.index = i
     this.toggle()
   }
 
@@ -29,5 +37,15 @@ export class AppComponent {
       if (this.opened) { this.opened = false }
       else { this.opened = true }
     }
+  }
+
+  openBottomSheet(){
+    const bottomSheetRef = this.bottomSheet.open(SettingsComponent)
+    bottomSheetRef.afterDismissed().subscribe((data) => {
+      if (data!=null){
+        this.settings = data
+        console.log(data)
+      }
+    });
   }
 }

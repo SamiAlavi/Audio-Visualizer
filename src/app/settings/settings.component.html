@@ -1,0 +1,11 @@
+<mat-form-field appearance="fill">
+<mat-label>Effects</mat-label>
+<mat-select matNativeControl required [(value)]="effect">
+    <mat-option value="rainbow1">Rainbow 1</mat-option>
+    <mat-option value="rainbow2">Rainbow 2</mat-option>
+</mat-select>
+</mat-form-field>
+<br>
+<mat-slide-toggle [checked]="checked" (change)="onChange($event.checked)">Autoplay</mat-slide-toggle>
+<br>
+<button mat-raised-button color='primary' (click)="closeBottomSheet()">Save</button>

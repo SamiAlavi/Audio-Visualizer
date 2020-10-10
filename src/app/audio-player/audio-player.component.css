@@ -8,13 +8,6 @@
 mat-slider{
     width:80%
 }
-.spanTitle{
+.center{
     margin:auto;
-}
-canvas{
-    display: block;
-    margin: auto;
-}
-#parent{
-    background-color: #0E0E0E;
 }

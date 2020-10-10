@@ -5,19 +5,12 @@
   (canplay)='setAudio($event.target)'>
 </audio>
 
-<div id='parent'>
-  <canvas id="audio_visual" width="400px" height='400px' ></canvas>
-</div>
-
 <div >
   <mat-toolbar color='primary' class='bottomToolbar'>
     <mat-toolbar-row>    
-      <span class='spanTitle'>{{title}}</span>
-      <span class="example-spacer"></span>
-      
-      <button mat-raised-button color='accent' style='width:110px'>Effects</button>
-
+      <span class='center'>{{title}}</span>
     </mat-toolbar-row>
+
     <mat-toolbar-row>
       <div *ngIf="playing; then pause else play">
       </div>
@@ -32,7 +25,7 @@
 
 
 <ng-template #play>
-  <button mat-icon-button (click)="updatePlayState('playing')"><mat-icon >play_circle_filled</mat-icon></button>
+  <button mat-icon-button (click)="updatePlayState('playing')"><mat-icon>play_circle_filled</mat-icon></button>
 </ng-template>
 <ng-template #pause>
   <button mat-icon-button (click)="updatePlayState('paused')"><mat-icon >pause_circle_filled</mat-icon></button>
