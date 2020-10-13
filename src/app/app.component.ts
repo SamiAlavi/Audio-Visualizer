@@ -18,7 +18,8 @@ export class AppComponent {
   songToPlay
   index
   opened: boolean = false
-  settings = {effect: 'rainbow1'}
+  settings = {effect: 'rainbow1',
+              autoplay: true}
   
   getFiles(files){
     this.files = files
@@ -40,11 +41,11 @@ export class AppComponent {
   }
 
   openBottomSheet(){
-    const bottomSheetRef = this.bottomSheet.open(SettingsComponent)
+    const bottomSheetRef = this.bottomSheet.open(SettingsComponent, {data:this.settings})
     bottomSheetRef.afterDismissed().subscribe((data) => {
       if (data!=null){
         this.settings = data
-        console.log(data)
+        console.log('Received to Parent',data)
       }
     });
   }

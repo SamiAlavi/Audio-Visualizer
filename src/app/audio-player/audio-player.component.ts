@@ -11,7 +11,9 @@ export class AudioPlayerComponent implements OnInit {
   @Input() songToPlay
   @Input() index
   @Input() files
+  @Input() settings
   
+  path = 'http://127.0.0.1:8887/'
   duration    //Audio Duration
   totalTime   //Audio Duration (formatted as string)
   currentTime //Audio Current Time
@@ -23,7 +25,7 @@ export class AudioPlayerComponent implements OnInit {
   
   playing: boolean = false
   state: string = 'stopped'
-  autoplay: boolean = true
+  autoplay: boolean = true  
 
   constructor() {}  
 
@@ -32,23 +34,24 @@ export class AudioPlayerComponent implements OnInit {
     this.audioPlayer.onended = ()=>{
       console.log('ended')
       this.updatePlayState('ended')
-      if (this.autoplay && this.index<this.files.length-1){
+      if (this.settings.autoplay && this.index<this.files.length-1){
         this.index++
         console.log('start next')
-        this.playSong(this.files[this.index])
+        this.songToPlay = this.files[this.index]
+        this.playSong(this.songToPlay.name)
       }
     }
   }
 
   ngOnChanges(): void {
     if (this.songToPlay!=null) {
-      this.playSong(this.songToPlay)
+      this.playSong(this.songToPlay.name)
     }
   }
 
-  playSong(song){
-    this.audiourl = 'http://127.0.0.1:8887/'+song.name
-    this.title = song.name
+  playSong(songname){
+    this.audiourl = this.path+songname
+    this.title = songname
     this.updatePlayState('playing')
   }
 

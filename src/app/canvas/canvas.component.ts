@@ -38,13 +38,10 @@ export class CanvasComponent implements OnInit {
     this.source = this.audioCtx.createMediaElementSource(this.audioElement);
     this.source.connect(this.analyser);
     this.source.connect(this.audioCtx.destination);
+
+    this.audioAnalyser()
   }
 
-  ngOnChanges(): void {
-    if (this.songToPlay!=null) {
-      this.audioAnalyser()
-    }
-  }
 
   resizeCanvas(){
     this.canvas = document.getElementById('audio_visual') as HTMLCanvasElement

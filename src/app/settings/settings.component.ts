@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 
 @Component({
   selector: 'app-settings',
@@ -8,21 +8,25 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 })
 export class SettingsComponent implements OnInit {
 
-  constructor(private bottomSheet: MatBottomSheet) {}
+  constructor(@Inject(MAT_BOTTOM_SHEET_DATA) private data: any, private bottomSheet: MatBottomSheetRef<SettingsComponent>) {}
 
-  effect: string = 'rainbow1'
-  checked: boolean = true
+  effect: string
+  autoplay: boolean
 
   ngOnInit(): void {
+    console.log('Received to Settings Comp',this.data)
+    this.effect = this.data.effect
+    this.autoplay = this.data.autoplay
   }
 
   closeBottomSheet(){
     this.bottomSheet.dismiss(
-      {effect: this.effect});
+      {effect: this.effect,
+       autoplay: this.autoplay});
   }
 
-  onChange(checked){
-    this.checked = checked
+  onChange(value){
+    this.autoplay = value
   }
 
 }

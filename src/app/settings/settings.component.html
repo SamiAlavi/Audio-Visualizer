@@ -6,6 +6,7 @@
 </mat-select>
 </mat-form-field>
 <br>
-<mat-slide-toggle [checked]="checked" (change)="onChange($event.checked)">Autoplay</mat-slide-toggle>
-<br>
+<mat-slide-toggle [checked]="autoplay" (change)="onChange($event.checked)">Autoplay</mat-slide-toggle>
+<br><br>
 <button mat-raised-button color='primary' (click)="closeBottomSheet()">Save</button>
+
