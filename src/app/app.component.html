@@ -3,9 +3,9 @@
     <mat-icon
     [matBadge]="length" [matBadgeHidden]="!files" matBadgePosition="before" matBadgeColor="accent">menu</mat-icon>
   </button>
-  {{title}}  
+  {{title}}
   <span class="example-spacer"></span>
-  <app-file-upload (sendFiles)='getFiles($event)'></app-file-upload>
+  <app-file-upload (sendFiles)='getFiless($event)'></app-file-upload>
   <button mat-icon-button (click)='openBottomSheet()'>
     <mat-icon>settings</mat-icon>
   </button>

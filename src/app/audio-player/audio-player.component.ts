@@ -12,8 +12,7 @@ export class AudioPlayerComponent implements OnInit {
   @Input() index
   @Input() files
   @Input() settings
-  
-  path = 'http://127.0.0.1:8887/'
+
   duration    //Audio Duration
   totalTime   //Audio Duration (formatted as string)
   currentTime //Audio Current Time
@@ -22,12 +21,12 @@ export class AudioPlayerComponent implements OnInit {
   audio       //Audio Element
   title       //Audio Title
   audioPlayer
-  
+
   playing: boolean = false
   state: string = 'stopped'
-  autoplay: boolean = true  
+  autoplay: boolean = true
 
-  constructor() {}  
+  constructor() {}
 
   ngOnInit(): void {
     this.audioPlayer = document.getElementById('audioPlayer')
@@ -38,20 +37,20 @@ export class AudioPlayerComponent implements OnInit {
         this.index++
         console.log('start next')
         this.songToPlay = this.files[this.index]
-        this.playSong(this.songToPlay.name)
+        this.playSong(this.songToPlay)
       }
     }
   }
 
   ngOnChanges(): void {
     if (this.songToPlay!=null) {
-      this.playSong(this.songToPlay.name)
+      this.playSong(this.songToPlay)
     }
   }
 
-  playSong(songname){
-    this.audiourl = this.path+songname
-    this.title = songname
+  playSong(song){
+    this.audiourl = song.url
+    this.title = song.name
     this.updatePlayState('playing')
   }
 
@@ -78,7 +77,7 @@ export class AudioPlayerComponent implements OnInit {
   }
 
   setAudio(audioElement){
-    this.audio = audioElement    
+    this.audio = audioElement
   }
 
   updatePlayState(state){
@@ -90,7 +89,7 @@ export class AudioPlayerComponent implements OnInit {
       }
       else if (state=='paused'){
         this.playing = false
-        if (this.audio!=null) this.audio.pause()      
+        if (this.audio!=null) this.audio.pause()
       }
       else if (state=='stopped'){
         this.onSeek(0)
@@ -99,6 +98,6 @@ export class AudioPlayerComponent implements OnInit {
       else if (state=='ended'){
         this.playing = false
       }
-    }    
+    }
   }
 }

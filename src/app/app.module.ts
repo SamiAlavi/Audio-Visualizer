@@ -21,6 +21,8 @@ import { AudioPlayerComponent } from './audio-player/audio-player.component';
 import { CanvasComponent } from './canvas/canvas.component'
 import { SettingsComponent } from './settings/settings.component';
 
+import { HttpClientModule } from '@angular/common/http';
+
 const matmodules = [
   MatButtonModule,
   MatListModule,
@@ -36,7 +38,7 @@ const matmodules = [
   MatSlideToggleModule
 ]
 @NgModule({
-  declarations: [	
+  declarations: [
     AppComponent,
     FileUploadComponent,
     AudioPlayerComponent,
@@ -46,7 +48,8 @@ const matmodules = [
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    matmodules
+    matmodules,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
