@@ -6,7 +6,7 @@ const app = express();
 global.__basedir = __dirname;
 
 var corsOptions = {
-  origin: "http://localhost:4200"
+  origin: "http://localhost:5000"
 };
 
 app.use(cors(corsOptions)); //COARS
@@ -15,7 +15,7 @@ const initRoutes = require("./src/routes");
 
 app.use(express.urlencoded({ extended: true }));
 app.use('/audios',express.static(__basedir+"/resources/static/assets/uploads/")) //static files serve
-app.use(express.static(__basedir + '/dist/visualizer'));
+app.use(express.static(__basedir));
 
 initRoutes(app);
 
@@ -24,4 +24,4 @@ app.get('/*', function(req,res) {
 });
 
 
-app.listen(process.env.PORT || 8080);
+app.listen(process.env.PORT || 5000);

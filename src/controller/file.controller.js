@@ -27,7 +27,7 @@ const upload = async (req, res) => {
 
 const getListFiles = (req, res) => {
   const directoryPath = __basedir + "/resources/static/assets/uploads/";
-  const baseUrl = "http://localhost:8080/audios/";
+  const baseUrl = "http://localhost:5000/audios/";
 
   fs.readdir(directoryPath, function (err, files) {
     if (err) {
