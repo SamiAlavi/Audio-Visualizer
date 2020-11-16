@@ -4,9 +4,10 @@ const path = require('path');
 const app = express();
 
 global.__basedir = __dirname;
+global.__website = "https://audio-visualize.herokuapp.com" //change to localhost:5000 for "heroku local web"
 
 var corsOptions = {
-  origin: "http://localhost:5000"
+  origin: __website
 };
 
 app.use(cors(corsOptions)); //COARS
