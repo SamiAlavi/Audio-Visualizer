@@ -3,5 +3,5 @@
 # dependencies
 /node_modules
 
-#uploads
-/resources/static/assets/uploads
+# front end
+/frontend

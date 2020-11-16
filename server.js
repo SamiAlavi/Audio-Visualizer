@@ -15,12 +15,12 @@ const initRoutes = require("./src/routes");
 
 app.use(express.urlencoded({ extended: true }));
 app.use('/audios',express.static(__basedir+"/resources/static/assets/uploads/")) //static files serve
-app.use(express.static(__basedir + '../frontend/dist/visualizer'));
+app.use(express.static(__basedir + '/dist/visualizer'));
 
 initRoutes(app);
 
 app.get('/*', function(req,res) {
-  res.sendFile(path.join(__basedir+'../frontend/dist/visualizer/index.html'));
+  res.sendFile(path.join(__basedir+'/dist/visualizer/index.html'));
 });
 
 
